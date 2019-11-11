@@ -3,11 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="./Assets/style.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="./style.css" />
+    <title>My Quiz</title>
 </head>
 <body>
-    <script src="./Assets/script.js"></script>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container pl-0">
+            <div class="navbar-nav navbar-expand-sm float-left">
+                    <a class="myPurple" href="../index.html">Make Another Attempt</a>  
+            </div>
+            <div class="nav justify-content-end">
+                <!--  -->
+            </div>             
+        </div>
+    </nav>
+    <div class="container" id= "HSfullContainer">
+        <div class="row mt-4" id="HSrow01">
+            <div class = "col-12" id="HSrow01col01">
+                <h5 class ="myPurple text-center" id = "HSTitle">Top Five High Scores</h5>
+            </div>
+        </div>
+        <div class="row" id="HSrow02">
+            <div class = "col-12" id="HSrow02col01"></div>
+        </div>
+        <div class="row" id="HSrow03">
+            <div class = "col-12 " id="HSrow03col01">
+                <div class = "text-center">
+                    <button class = "myPurple" id="HSclearBtn">Clear High Scores</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="./questions.js"></script>
+    <script type="text/javascript" src="./script.js"> </script>
+    <script>    
+        //HSgoBackBtn.addEventListener("click", returnToIndex);
+        HSclearBtn.addEventListener("click", clearHighScore);
+        document.addEventListener("DOMContentLoaded",builtHighScorePage);
+    </script>
+
 </body>
 </html>

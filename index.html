@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="./Assets/style.css" />
-    <title>Document</title>
+    <title>My Quiz</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container pl-0">
             <div class="navbar-nav navbar-expand-sm float-left">
-                <a class="myPurple" href="./Assets/highScore.html">View high score</a>   
+                <a class="myPurple" href="./Assets/highScore.html">View High Scores</a>   
             </div>
-            <div class="nav justify-content-end">
-                <p>TIMER PLACEHOLDER</p>
+            <div class="navbar-nav navbar-expand-sm justify-content-end">
+                <p class="myPurple m-0" id="timerBox"></p>
             </div>             
         </div>
     </nav>
@@ -32,5 +32,6 @@
 
     <script type="text/javascript" src="./Assets/questions.js"></script>
     <script type="text/javascript" src="./Assets/script.js"></script>
+    <script>document.addEventListener("DOMContentLoaded",buildStartPage);</script>
 </body>
 </html>
