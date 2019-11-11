@@ -1,0 +1,23 @@
+body {
+  height: 100%;
+  margin:0px;
+  color:#777777;
+  font-family:'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 16px;
+  }
+
+.myPurple {color: rgb(78, 042, 132);}
+
+.optionButton {
+  color: white;
+  background-color: rgb(78, 042, 132);
+  border-color: rgb(78, 042, 132);
+}
+.optionButton:visited {border-color: grey; background-color: rgb(100, 75, 132);}
+.optionButton:active {border-color: grey; background-color: rgb(100, 75, 132);}
+.optionButton:hover {border-color: grey; background-color: rgb(100, 75, 132);}
+
+a:link {color: rgb(78, 042, 132);}
+a:visited {color: rgb(78, 042, 132);}
+a:hover {color: rgb(78, 042, 132); text-decoration: none;}
+a:active {color: rgb(78, 042, 132);}
