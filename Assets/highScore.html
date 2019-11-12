@@ -14,7 +14,6 @@
                     <a class="myPurple" href="../index.html">Make Another Attempt</a>  
             </div>
             <div class="nav justify-content-end">
-                <!--  -->
             </div>             
         </div>
     </nav>
@@ -28,10 +27,11 @@
             <div class = "col-12" id="HSrow02col01"></div>
         </div>
         <div class="row" id="HSrow03">
-            <div class = "col-12 " id="HSrow03col01">
-                <div class = "text-center">
-                    <button class = "myPurple" id="HSclearBtn">Clear High Scores</button>
-                </div>
+            <div class = "col-6 p2 text-center" id="HSrow03col01">
+                <button class = "myPurple" id="HSgoBackBtn">Make Another Atttempt</button>
+            </div>
+            <div class = "col-6 p2 text-center" id="HSrow03col02">
+                <button class = "myPurple" id="HSclearBtn">Clear High Scores</button>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
     <script type="text/javascript" src="./questions.js"></script>
     <script type="text/javascript" src="./script.js"> </script>
     <script>    
-        //HSgoBackBtn.addEventListener("click", returnToIndex);
+        HSgoBackBtn.addEventListener("click", returnToIndex);
         HSclearBtn.addEventListener("click", clearHighScore);
         document.addEventListener("DOMContentLoaded",builtHighScorePage);
     </script>

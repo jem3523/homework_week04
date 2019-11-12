@@ -21,3 +21,13 @@ a:link {color: rgb(78, 042, 132);}
 a:visited {color: rgb(78, 042, 132);}
 a:hover {color: rgb(78, 042, 132); text-decoration: none;}
 a:active {color: rgb(78, 042, 132);}
+
+.table {
+  border-radius: 5px;
+  width: 20%;
+  margin: 0px auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  float: none;
+  align-content: center;
+}

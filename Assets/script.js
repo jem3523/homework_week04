@@ -1,3 +1,4 @@
+//convert element IDs that do not get removed into var
 var fullContainer = document.querySelector("#fullContainer");
 var timerBox = document.querySelector("#timerBox");
 var row01 = document.querySelector("#row01");
@@ -6,20 +7,21 @@ var row03 = document.querySelector("#row03");
 var row01col01 = document.querySelector("#row01col01");
 var row02col01 = document.querySelector("#row02col01");
 var row03col01 = document.querySelector("#row03col01");
-
 var HSclearBtn = document.querySelector("#HSclearBtn");
+var HSgoBackBtn = document.querySelector("#HSgoBackBtn");
 var HSrow02col01 = document.querySelector("#HSrow02col01");
 
+//set global variables up front
 var status = "ready";
 var score = 0;
-var timeStart = 0;
 var timeRemaining = 0;
 var quizLength = questions.length;
 var questionTime = 15000;
 var scoreFeedback = "waiting";
 
-
+//this function builds the index page; it auto-runs on opening of window
 function buildStartPage()
+//first it must check to see what elements are on the page from previous cycles by checking the status
 {
   if(status == "resultsStarted")
   {
@@ -30,6 +32,7 @@ function buildStartPage()
     document.querySelector("#resultsBtn").remove();
   };
 
+  //then it must add all the elements to the original landing page, both for initial build and when returning from results
   var quizTitle = document.createElement("h5");
   quizTitle.textContent = "My Quiz";
   quizTitle.setAttribute("id", "quizTitle");
@@ -57,18 +60,18 @@ function buildStartPage()
   status = "appStarted";
 }
 
-
+//this function is activated by clicking the start button; it sets the time remaining, and after rending the first question, it updates the timer
 function startQuiz (event)
 {  
-  timeStart = quizLength * questionTime;
   timeRemaining = quizLength * questionTime;
   questionRender();
   status = "quizStarted";
-  console.log("time at start: " + timeRemaining)
-  timerBox.innerHTML = "Timer: " + timeRemaining;
+  console.log("time at start in miliseconds: " + timeRemaining)
+  // the interval repeats every second until it is cleared
   timerID = setInterval(timerCountdown, 1000);
 };
 
+//this function is called by the interval function; it also controls the score (deduct if q is missed; add if q is correct; otherwise simple countdown)
 function timerCountdown ()
 {
   if (scoreFeedback == "waiting")
@@ -82,10 +85,12 @@ function timerCountdown ()
 
   scoreFeedback = "waiting";
   console.log(timeRemaining);
+  //the score must be converted back to seconds for user-friendly view
   score = timeRemaining/1000;
   timerBox.innerHTML = "Timer: " + score;
 }
 
+//this function renders each question after removing elements seen on the landing page or a previous queston
 function questionRender()
 {
   if(status == "appStarted")
@@ -103,13 +108,16 @@ function questionRender()
       document.querySelector("#optionBucket").remove();
   
       for (n=1;n>4;n++)
-      //research j<questions[i].choices.length
+      //loop through in order to remove each option (research n<questions[i].choices.length)
       {
         document.querySelector("#optionRow0[n]").remove();
         document.querySelector("#optionCol0[n]").remove();
         document.querySelector("#optionBtn0[n]").remove();
       }
     };
+
+  //cycle for each question looking to see if "used" setting in question is false. Once it gets a hit, it drops/returns, 
+  //thereby only selecting one question at a time. it then builds the parts of the question.
 
   for (i=0; i<questions.length; i++)
   {
@@ -120,6 +128,7 @@ function questionRender()
       qStem.setAttribute("id", "qStem");
       row01col01.append(qStem);
 
+      //although this is built upfront, it is invisible until the user selects an answer
       var qResponse = document.createElement("div");
       qResponse.setAttribute("id", "qResponse");
       qResponse.setAttribute("class", "invisible");
@@ -131,7 +140,7 @@ function questionRender()
       row02col01.append(optionBucket); 
 
       for (j=0; j<4; j++)
-      //research j<questions[i].choices.length
+      //loop through in order to add each option (research j<questions[i].choices.length)
       {
         var optionRow = document.createElement("div");
         optionRow.setAttribute("class", "row m-2");
@@ -148,6 +157,7 @@ function questionRender()
         qOption.setAttribute("class","btn optionButton");
         qOption.setAttribute("id","optionBtn0"+[j]);
 
+        //this is how the correct answer is marked (not realistic in the real world because it would be totally hackable)
         if (questions[i].choices[j] == questions[i].answer)
           {qOption.setAttribute("x","true");}
         else 
@@ -157,20 +167,27 @@ function questionRender()
 
         var startButton = document.querySelector("#startButton");
         var optionBucket = document.querySelector("#optionBucket");
+
+        //once build, the event listerer starts for clicking the option
         optionBucket.addEventListener("click", selectOption);
+
+        //after the question is used, it is marked so that it is not selected in the next loop
         questions[i].used = true;
       }
       return;    
     }
   }
+  //when no questions are left, stop the timer and render the results
   clearInterval(timerID);
   resultsRender();
 }
 
+//this function renders the results (still on the landing page)
 function resultsRender()
 {
   status = "resultsStarted";
   
+  //make the timer disapper, then build the elements
   timerBox.innerHTML = null;
 
   var resultsTitle = document.createElement("h5");
@@ -186,7 +203,7 @@ function resultsRender()
   row02col01.append(resultsPara);
 
   var resultsForm = document.createElement("form");
-  resultsForm.innerHTML = "Enter your initials: ";
+  resultsForm.innerHTML = "Enter your initials (limit: 3 characters): ";
   resultsForm.setAttribute("id", "resultsForm");
   resultsForm.setAttribute("class","text-center");
   row03col01.append(resultsForm);
@@ -195,12 +212,13 @@ function resultsRender()
   resultsInput.setAttribute("type", "text");
   resultsInput.setAttribute("name", "userInitials");
   resultsInput.setAttribute("id", "resultsInput");
+  resultsInput.setAttribute("class", "");
   resultsForm.append(resultsInput);
 
   var resultsBtn = document.createElement("input");
   resultsBtn.setAttribute("type", "button");
   resultsBtn.setAttribute("value", "Submit");
-  resultsBtn.setAttribute("class", "myPurple pl-2");
+  resultsBtn.setAttribute("class", "myPurple m5");
   resultsBtn.setAttribute("id", "resultsBtn");
   resultsForm.append(resultsBtn);
 
@@ -208,7 +226,8 @@ function resultsRender()
   resultsBtn.addEventListener("click", resultSubmit);
 }
 
-
+//this function is triggered when the user selects an option; it checks for the correct answer
+//then makes the response visable to the user AND send the correct/incorrect variable for scoring in the 
 function selectOption(event)
 {
   event.preventDefault();
@@ -226,38 +245,46 @@ function selectOption(event)
         scoreFeedback="incorrect";
       };
   }
+  //this timeout is set so that within one second of the response being given, the next question is rendered
   setTimeout(questionRender, 1000);
 }
 
+//this function takes the initials from the input and stores it with the final score in localstorage
 function resultSubmit ()
 {
   {
-    var user = document.getElementById("resultsInput").value;
-  
+    var user = document.getElementById("resultsInput").value.substring(0,3);
+
+    //first check to see if the array exists in local storage
     if (localStorage.getItem("userList") == "cleared" | localStorage.getItem("userList") == null)
       {
+        //if not, even the array marks need to be included
         var userListOut = [{user: user, score: score}];
         localStorage.setItem("userList", JSON.stringify(userListOut));
       }
       else
         {
+          //if so, then no need to include initial brackets for array; instead convert to object and PUSH a new entry
           var userListOut = JSON.parse(localStorage.getItem("userList"));
           userListOut.push({user: user, score: score});
           localStorage.setItem("userList", JSON.stringify(userListOut));
         };
 
+    //this moves user to the highscore page (where it will autorun a function to build a table dynamically)
     window.location.href="./Assets/highScore.html";
   }
 }
 
+//this function builds the table of highscores stored in local storage
 function builtHighScorePage()
 {
+  //but first check if there is any info in local storage,
   if (document.getElementById("resultsTable") !== null) 
   { 
+    //if there is local storage, then there is also a table already on the page ... so remove that table
     var rowCount = document.getElementById("resultsTable").getElementsByTagName("tr");
 
     document.querySelector("#resultsTable").remove();
-    document.querySelector("#resultsTableBody").remove();
 
     for (n=1; n > rowCount; n++)
     {
@@ -267,7 +294,7 @@ function builtHighScorePage()
     }
   }
 
-
+  //if the localstorage has been cleared, all data is replace with on word, so either"cleared" or null should be replace with new entries
   if (localStorage.getItem("userList") == "cleared" | localStorage.getItem("userList") == null)
   {
     console.log("No stored scores.")
@@ -276,18 +303,16 @@ function builtHighScorePage()
   {
     var userListOut = JSON.parse(localStorage.getItem("userList"));
   
+    //to rank the scores, the array must be sorted ... but only if there is more than one entry to sort
     if (userListOut.length > 1)
     {userListOut.sort(compare);};
 
+    //then start building the table for the highscores pulled from local storage
     var resultsTable = document.createElement("table");
     resultsTable.setAttribute("id", "resultsTable");
-    resultsTable.setAttribute("class", "table table-sm table-bordered");
+    resultsTable.setAttribute("class", "table");
     HSrow02col01.append(resultsTable);
 
-    //var resultsTableBody = document.createElement("resultsTableBody");
-    //resultsTableBody.setAttribute("id", "resultsTableBody");
-    //resultsTableBody.setAttribute("class", "");
-    //resultsTable.append(resultsTableBody);
 
     if (userListOut.length < 5)
     {var tableCount = userListOut.length}
@@ -300,12 +325,12 @@ function builtHighScorePage()
       resultsRow.setAttribute("id", "tableRow0" + [u+1] );
       resultsRow.setAttribute("scope", "row");
       resultsTable.append(resultsRow);
-      //resultsTableBody.append(resultsRow);
 
       var resultsCol01 = document.createElement("td");
       resultsCol01.textContent = userListOut[u].user;
       resultsCol01.setAttribute("id", "resultsCol010" + [u+1]);
       resultsCol01.setAttribute("scope", "col");
+      resultsCol01.setAttribute("class", "font-weight-bold");
       resultsRow.append(resultsCol01);
 
       var resultsCol02 = document.createElement("td");
@@ -317,6 +342,7 @@ function builtHighScorePage()
   }
 }
 
+//this is the compare function used as part of the array sorting
 function compare(a, b) 
 {
   const scoreA = a.score;
@@ -331,7 +357,7 @@ function compare(a, b)
   return comparison;
 }
 
-
+//this function takes the entire array in local storage and replaces it with one word, then rebuilds the highscore page with no table
 function clearHighScore()
 {
   if (localStorage.getItem("userList") !== null)
@@ -340,7 +366,7 @@ function clearHighScore()
   builtHighScorePage();
 }
 
-
+//this function returns the user back to the landing page, where an auto-function rebuilds the page
 function returnToIndex()
 {window.location.href="../index.html"}
 

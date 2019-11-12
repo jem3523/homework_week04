@@ -1,20 +1,20 @@
 var questions = [
     {
-      title: "Chicago is in which state:",
-      choices: ["IL", "IN", "MI", "WI"],
-      answer: "IL",
+      title: "What is the largest city in Illinois?",
+      choices: ["Chicago", "Peoria", "Springfield", "St. Louis"],
+      answer: "Chicago",
       used:false
     },
     {
-      title: "What is my first name:",
-      choices: ["Mark", "John", "Jason", "Albert"],
-      answer: "Jason",
+      title: "What state is directly north of Illinois?",
+      choices: ["IN", "IA", "MI", "WI"],
+      answer: "WI",
       used:false
     },
     {
-        title: "What is my last name:",
-        choices: ["Collins", "Miller", "Smith", "Reedy"],
-        answer: "Miller",
+        title: "What is the captial of Illinois?",
+        choices: ["Chicago", "Peoria", "Springfield", "St. Louis"],
+        answer: "Springfield",
         used:false
     }
   ]
