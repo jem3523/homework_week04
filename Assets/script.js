@@ -1,4 +1,4 @@
-//convert element IDs that do not get removed into var
+//convert element IDs that do not get removed into var for later use
 var fullContainer = document.querySelector("#fullContainer");
 var timerBox = document.querySelector("#timerBox");
 var row01 = document.querySelector("#row01");
@@ -21,18 +21,7 @@ var scoreFeedback = "waiting";
 
 //this function builds the index page; it auto-runs on opening of window
 function buildStartPage()
-//first it must check to see what elements are on the page from previous cycles by checking the status
 {
-  if(status == "resultsStarted")
-  {
-    document.querySelector("#resultsTitle").remove();
-    document.querySelector("#resultsPara").remove();
-    document.querySelector("#resultsForm").remove();
-    document.querySelector("#resultsInput").remove();
-    document.querySelector("#resultsBtn").remove();
-  };
-
-  //then it must add all the elements to the original landing page, both for initial build and when returning from results
   var quizTitle = document.createElement("h5");
   quizTitle.textContent = "My Quiz";
   quizTitle.setAttribute("id", "quizTitle");
@@ -190,37 +179,31 @@ function resultsRender()
   //make the timer disapper, then build the elements
   timerBox.innerHTML = null;
 
-  var resultsTitle = document.createElement("h5");
-  resultsTitle.textContent = "All done!";
-  resultsTitle.setAttribute("id", "resultsTitle");
-  resultsTitle.setAttribute("class", "myPurple text-center");
-  row01col01.append(resultsTitle);
+  //this time we are looping through an array to create all the elements needed (instead of creating with unqiue sets of code)
+  elementList = [
+  {id:"resultsTitle", element:"h5",    eclass:"myPurple text-center", type:"",       value: "",       appendTo:"row01col01",  content:"All Done!"},
+  {id:"resultsPara",  element:"p",     eclass:"text-center",          type:"",       value: "",       appendTo:"row02col01",  content:"Your final score: " + score},
+  {id:"resultsForm",  element:"form",  eclass:"text-center",          type:"",       value: "",       appendTo:"row03col01",  content:""},
+  {id:"formRow",      element:"div",   eclass:"row",                  type:"",       value: "",       appendTo:"resultsForm", content:""},
+  {id:"formCol01",    element:"div",   eclass:"col-4",                type:"",       value: "",       appendTo:"formRow",     content:""},
+  {id:"resultsInstr", element:"label", eclass:"text-right",           type:"text",   value: "",       appendTo:"formCol01",   content:"Enter your initials (limit: 3 characters):"},
+  {id:"formCol02",    element:"div",   eclass:"col-4",                type:"",       value: "",       appendTo:"formRow",     content:""},
+  {id:"resultsInput", element:"input", eclass:"",                     type:"text",   value: "",       appendTo:"formCol02",   content:""},
+  {id:"formCol03",    element:"div",   eclass:"col-4",                type:"",       value: "",       appendTo:"formRow",     content:""},
+  {id:"resultsBtn",   element:"input", eclass:"myPurple text-left",   type:"button", value: "Submit", appendTo:"formCol03",   content:""},
+  ];
 
-  var resultsPara = document.createElement("p");
-  resultsPara.textContent = "Your final score is " + score + ".";
-  resultsPara.setAttribute("id", "resultsPara");
-  resultsPara.setAttribute("class", "text-center")
-  row02col01.append(resultsPara);
-
-  var resultsForm = document.createElement("form");
-  resultsForm.innerHTML = "Enter your initials (limit: 3 characters): ";
-  resultsForm.setAttribute("id", "resultsForm");
-  resultsForm.setAttribute("class","text-center");
-  row03col01.append(resultsForm);
-
-  var resultsInput = document.createElement("input");
-  resultsInput.setAttribute("type", "text");
-  resultsInput.setAttribute("name", "userInitials");
-  resultsInput.setAttribute("id", "resultsInput");
-  resultsInput.setAttribute("class", "");
-  resultsForm.append(resultsInput);
-
-  var resultsBtn = document.createElement("input");
-  resultsBtn.setAttribute("type", "button");
-  resultsBtn.setAttribute("value", "Submit");
-  resultsBtn.setAttribute("class", "myPurple m5");
-  resultsBtn.setAttribute("id", "resultsBtn");
-  resultsForm.append(resultsBtn);
+  for (r=0; r<elementList.length; r++)
+  {
+    var tempElement = document.createElement(elementList[r].element);
+    tempElement.textContent = elementList[r].content;
+    tempElement.setAttribute("id", elementList[r].id);
+    tempElement.setAttribute("class", elementList[r].eclass);
+    tempElement.setAttribute("type", elementList[r].type);
+    tempElement.setAttribute("value", elementList[r].value);
+    var tempPlacement = document.querySelector("#" + elementList[r].appendTo);
+    tempPlacement.append(tempElement);
+  }
 
   var resultsBtn = document.querySelector("#resultsBtn");
   resultsBtn.addEventListener("click", resultSubmit);
