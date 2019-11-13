@@ -184,13 +184,13 @@ function resultsRender()
   {id:"resultsTitle", element:"h5",    eclass:"myPurple text-center", type:"",       value: "",       appendTo:"row01col01",  content:"All Done!"},
   {id:"resultsPara",  element:"p",     eclass:"text-center",          type:"",       value: "",       appendTo:"row02col01",  content:"Your final score: " + score},
   {id:"resultsForm",  element:"form",  eclass:"text-center",          type:"",       value: "",       appendTo:"row03col01",  content:""},
-  {id:"formRow",      element:"div",   eclass:"row",                  type:"",       value: "",       appendTo:"resultsForm", content:""},
-  {id:"formCol01",    element:"div",   eclass:"col-4",                type:"",       value: "",       appendTo:"formRow",     content:""},
-  {id:"resultsInstr", element:"label", eclass:"text-right",           type:"text",   value: "",       appendTo:"formCol01",   content:"Enter your initials (limit: 3 characters):"},
-  {id:"formCol02",    element:"div",   eclass:"col-4",                type:"",       value: "",       appendTo:"formRow",     content:""},
-  {id:"resultsInput", element:"input", eclass:"",                     type:"text",   value: "",       appendTo:"formCol02",   content:""},
-  {id:"formCol03",    element:"div",   eclass:"col-4",                type:"",       value: "",       appendTo:"formRow",     content:""},
-  {id:"resultsBtn",   element:"input", eclass:"myPurple text-left",   type:"button", value: "Submit", appendTo:"formCol03",   content:""},
+  {id:"formRow",      element:"div",   eclass:"row align-middle",     type:"",       value: "",       appendTo:"resultsForm", content:""},
+  {id:"formCol01",    element:"div",   eclass:"col-xs-12 col-md-4",   type:"",       value: "",       appendTo:"formRow",     content:""},
+  {id:"resultsInstr", element:"label", eclass:"text-center",          type:"text",   value: "",       appendTo:"formCol01",   content:"Enter your initials (limit: 3 characters):"},
+  {id:"formCol02",    element:"div",   eclass:"col-xs-12 col-md-4",   type:"",       value: "",       appendTo:"formRow",     content:""},
+  {id:"resultsInput", element:"input", eclass:"form-control",         type:"text",   value: "",       appendTo:"formCol02",   content:""},
+  {id:"formCol03",    element:"div",   eclass:"col-xs-12 col-md-4 text-center text-md-left",   type:"",       value: "",       appendTo:"formRow",     content:""},
+  {id:"resultsBtn",   element:"input", eclass:"myPurple mt-3 mt-md-1",       type:"button", value: "Submit", appendTo:"formCol03",   content:""},
   ];
 
   for (r=0; r<elementList.length; r++)
