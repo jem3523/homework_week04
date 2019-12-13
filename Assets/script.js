@@ -23,7 +23,7 @@ var scoreFeedback = "waiting";
 function buildStartPage()
 {
   var quizTitle = document.createElement("h5");
-  quizTitle.textContent = "My Quiz";
+  quizTitle.textContent = "Quiz Fun";
   quizTitle.setAttribute("id", "quizTitle");
   quizTitle.setAttribute("class", "myPurple text-center");
   row01col01.append(quizTitle);
