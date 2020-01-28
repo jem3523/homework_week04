@@ -12,7 +12,7 @@ var questions = [
       used:false
     },
     {
-        title: "What is the captial of Illinois?",
+        title: "What is the capital of Illinois?",
         choices: ["Chicago", "Peoria", "Springfield", "St. Louis"],
         answer: "Springfield",
         used:false
